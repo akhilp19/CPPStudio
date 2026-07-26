@@ -132,6 +132,19 @@ git push origin master
 - **End of Phase 2** — if replacing generic LSP services with custom C/C++ services is harder in Theia than in a fork of VS Code or Qt Creator.
 - **Before Phase 4** — if performance, extension-marketplace limitations, or licensing block enterprise adoption.
 
+### 2.5.6 Current status
+
+- **Fork created:** `https://github.com/akhilp19/theia`
+- **Upstream sync workflow:** `.github/workflows/sync-upstream.yml` pushed; requires a `PAT` secret with `repo` scope to be enabled.
+- **Scaffold extension:** `packages/cpp-build/` created with:
+  - Common RPC protocol, preference schema, and build-system model
+  - Frontend commands, service proxy, and status-bar contribution
+  - Backend server, build-system registry, and adapter interface
+  - Placeholder adapters for CMake, Bazel, Meson, and Make
+  - Registered in `examples/browser/package.json`
+
+**Next implementation target:** CMake adapter — detect `CMakeLists.txt`, read `CMakePresets.json`, invoke `cmake` configure/build, and write `.clangd`/`compile_commands.json` wiring.
+
 ---
 
 ## 3. Current Pain Points (Problem Catalog)
