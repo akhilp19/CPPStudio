@@ -145,7 +145,7 @@ git push origin master
   - Placeholder adapters for CMake, Bazel, Meson, and Make
   - Registered in `examples/browser/package.json`
 
-**Next implementation target:** Phase E — add a `DebugAdapterContribution` so you can launch gdb/lldb directly from a selected C/C++ build target.
+**Next implementation target:** Phase F — route build-system detection, configure/build, and `compile_commands.json` reading through Theia's remote abstractions so the IDE works with WSL, containers, and SSH hosts.
 
 ### 2.5.7 Theia extension implementation plan
 
@@ -157,10 +157,10 @@ These milestones focus on building `packages/cpp-build/` inside the Theia fork. 
 | **B — Detection service** | Detect the correct build system per workspace root | `BuildSystemRegistry` selects best `BuildSystemAdapter`; CMake adapter reads `CMakePresets.json`, resolves build directory and `compile_commands.json`; quick-pick preset selection; status bar shows active system. | 1 week | ✅ Complete |
 | **C — Build execution & output** | Run configure/build and surface output | `runStreamingCommand` invokes `cmake`; output streams to a dedicated **C/C++ Build** output channel; build events notify frontend. | 1 week | ✅ Complete |
 | **D — clangd wiring** | Feed compiler invocations to the language server | Adapter writes `.clangd` config pointing at `compile_commands.json`; VS Code clangd extension picks it up automatically. | Few days | ✅ Complete |
-| **E — Debug integration** | Launch debugger from build graph | `DebugAdapterContribution` for `cppdbg`; resolves `program`, `args`, `cwd`, and debugger path from selected build target. | 1 week | 🚧 In progress |
-| **F — Remote builds** | Cross-platform and containerized builds | Detect remote workspace URI; route discovery/build commands through `RemoteConnection.exec()`; read generated `compile_commands.json` via `FileService`. | 1–2 weeks | Pending |
+| **E — Debug integration** | Launch debugger from build graph | `DebugAdapterContribution` for `cppdbg`; resolves `program`, `args`, `cwd`, and debugger path from selected build target. | 1 week | ✅ Complete |
+| **F — Remote builds** | Cross-platform and containerized builds | Detect remote workspace URI; route discovery/build commands through `RemoteConnection.exec()`; read generated `compile_commands.json` via `FileService`. | 1–2 weeks | 🚧 In progress |
 
-**Current progress:** Phase D complete; Phase E in progress.
+**Current progress:** Phase E complete; Phase F in progress.
 
 ---
 
