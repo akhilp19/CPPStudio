@@ -113,6 +113,8 @@ This project will **never push code back to the upstream Theia repository** as p
 
 The file `.github/workflows/sync-upstream.yml` in `akhilp19/theia` syncs `upstream/master` into `origin/master` every Monday at 06:00 UTC and supports manual triggering.
 
+> **Note:** All upstream Theia workflows (CI/CD, Playwright Tests, Production Build Smoke Test, etc.) have been disabled in this fork to avoid unnecessary failing runs. Only `Sync upstream Theia` remains active.
+
 Required setup:
 1. Create a GitHub **Personal Access Token (PAT)** with `repo` scope.
 2. Add it to `akhilp19/theia` under **Settings > Secrets and variables > Actions** as `PAT`.
