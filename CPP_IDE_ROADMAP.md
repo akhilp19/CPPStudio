@@ -138,14 +138,16 @@ git push origin master
 
 - **Fork created:** `https://github.com/akhilp19/theia`
 - **Upstream sync workflow:** `.github/workflows/sync-upstream.yml` pushed; requires a `PAT` secret with `repo` scope to be enabled.
-- **Scaffold extension:** `packages/cpp-build/` created with:
+- **Extension implementation:** `packages/cpp-build/` now contains:
   - Common RPC protocol, preference schema, and build-system model
-  - Frontend commands, service proxy, and status-bar contribution
+  - Frontend commands, service proxy, status-bar contribution, and keybindings
   - Backend server, build-system registry, and adapter interface
-  - Placeholder adapters for CMake, Bazel, Meson, and Make
-  - Registered in `examples/browser/package.json`
+  - Adapters for CMake, Bazel, Meson, and Make with configure/build/clean execution
+  - Auto-generated `.clangd` wiring after configure/build
+  - Debug adapter contribution for launching gdb/lldb from a selected build target
+  - Remote-aware build executor and file utilities for WSL, containers, and SSH hosts
 
-**Next implementation target:** Phase F — route build-system detection, configure/build, and `compile_commands.json` reading through Theia's remote abstractions so the IDE works with WSL, containers, and SSH hosts.
+**Next implementation target:** Phase 1 product milestones — unified build-system adapter maturity, compiler-driven indexing, one-click onboarding wizard, and C/C++ test runner unification.
 
 ### 2.5.7 Theia extension implementation plan
 
@@ -158,9 +160,9 @@ These milestones focus on building `packages/cpp-build/` inside the Theia fork. 
 | **C — Build execution & output** | Run configure/build and surface output | `runStreamingCommand` invokes `cmake`; output streams to a dedicated **C/C++ Build** output channel; build events notify frontend. | 1 week | ✅ Complete |
 | **D — clangd wiring** | Feed compiler invocations to the language server | Adapter writes `.clangd` config pointing at `compile_commands.json`; VS Code clangd extension picks it up automatically. | Few days | ✅ Complete |
 | **E — Debug integration** | Launch debugger from build graph | `DebugAdapterContribution` for `cppdbg`; resolves `program`, `args`, `cwd`, and debugger path from selected build target. | 1 week | ✅ Complete |
-| **F — Remote builds** | Cross-platform and containerized builds | Detect remote workspace URI; route discovery/build commands through `RemoteConnection.exec()`; read generated `compile_commands.json` via `FileService`. | 1–2 weeks | 🚧 In progress |
+| **F — Remote builds** | Cross-platform and containerized builds | Detect remote workspace URI; route discovery/build commands through `RemoteConnection.exec()`; read `CMakePresets.json` and generated `compile_commands.json` from remote filesystem; write `.clangd` back to remote workspace. | 1–2 weeks | ✅ Complete |
 
-**Current progress:** Phase E complete; Phase F in progress.
+**Current progress:** Phase F complete.
 
 ---
 
