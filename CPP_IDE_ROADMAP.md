@@ -143,22 +143,22 @@ git push origin master
   - Placeholder adapters for CMake, Bazel, Meson, and Make
   - Registered in `examples/browser/package.json`
 
-**Next implementation target:** CMake adapter — detect `CMakeLists.txt`, read `CMakePresets.json`, invoke `cmake` configure/build, and write `.clangd`/`compile_commands.json` wiring.
+**Next implementation target:** Phase C — wire CMake configure/build to real process execution and stream output to a dedicated C/C++ Build output channel.
 
 ### 2.5.7 Theia extension implementation plan
 
 These milestones focus on building `packages/cpp-build/` inside the Theia fork. They are intentionally narrower than the product-level phases in Section 4 and should fit within Phase 1 of the main roadmap.
 
-| Phase | Focus | Deliverables | Duration |
-|-------|-------|--------------|----------|
-| **A — Bootstrap** | Package wiring and extension registration | `packages/cpp-build/` created, registered in `examples/browser`, commands appear in palette, frontend/backend modules load. | 1–2 days |
-| **B — Detection service** | Detect the correct build system per workspace root | `BuildSystemRegistry` selects best `BuildSystemAdapter`; CMake adapter fully detects `CMakeLists.txt`; status bar shows active system. | 1 week |
-| **C — Build execution & output** | Run configure/build and surface output | `CppBuildTaskRunner` invokes `cmake`; output streams to a dedicated **C/C++ Build** output channel; build events notify frontend. | 1 week |
-| **D — clangd wiring** | Feed compiler invocations to the language server | Adapter writes `.clangd` config pointing at `compile_commands.json`; VS Code clangd extension picks it up automatically. | Few days |
-| **E — Debug integration** | Launch debugger from build graph | `DebugAdapterContribution` for `cppdbg`; resolves `program`, `args`, `cwd`, and debugger path from selected build target. | 1 week |
-| **F — Remote builds** | Cross-platform and containerized builds | Detect remote workspace URI; route discovery/build commands through `RemoteConnection.exec()`; read generated `compile_commands.json` via `FileService`. | 1–2 weeks |
+| Phase | Focus | Deliverables | Duration | Status |
+|-------|-------|--------------|----------|--------|
+| **A — Bootstrap** | Package wiring and extension registration | `packages/cpp-build/` created, registered in `examples/browser`, commands appear in palette, frontend/backend modules load. | 1–2 days | ✅ Complete |
+| **B — Detection service** | Detect the correct build system per workspace root | `BuildSystemRegistry` selects best `BuildSystemAdapter`; CMake adapter reads `CMakePresets.json`, resolves build directory and `compile_commands.json`; quick-pick preset selection; status bar shows active system. | 1 week | ✅ Complete |
+| **C — Build execution & output** | Run configure/build and surface output | `CppBuildTaskRunner` invokes `cmake`; output streams to a dedicated **C/C++ Build** output channel; build events notify frontend. | 1 week | 🚧 In progress |
+| **D — clangd wiring** | Feed compiler invocations to the language server | Adapter writes `.clangd` config pointing at `compile_commands.json`; VS Code clangd extension picks it up automatically. | Few days | Pending |
+| **E — Debug integration** | Launch debugger from build graph | `DebugAdapterContribution` for `cppdbg`; resolves `program`, `args`, `cwd`, and debugger path from selected build target. | 1 week | Pending |
+| **F — Remote builds** | Cross-platform and containerized builds | Detect remote workspace URI; route discovery/build commands through `RemoteConnection.exec()`; read generated `compile_commands.json` via `FileService`. | 1–2 weeks | Pending |
 
-**Current progress:** Phase A complete; Phase B in progress.
+**Current progress:** Phase B complete; Phase C in progress.
 
 ---
 
