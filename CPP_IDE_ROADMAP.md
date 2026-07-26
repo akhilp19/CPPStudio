@@ -145,7 +145,7 @@ git push origin master
   - Placeholder adapters for CMake, Bazel, Meson, and Make
   - Registered in `examples/browser/package.json`
 
-**Next implementation target:** Phase C — wire CMake configure/build to real process execution and stream output to a dedicated C/C++ Build output channel.
+**Next implementation target:** Phase D — automatically write `.clangd` config pointing at the resolved `compile_commands.json` so the VS Code clangd extension gets correct IntelliSense.
 
 ### 2.5.7 Theia extension implementation plan
 
@@ -155,12 +155,12 @@ These milestones focus on building `packages/cpp-build/` inside the Theia fork. 
 |-------|-------|--------------|----------|--------|
 | **A — Bootstrap** | Package wiring and extension registration | `packages/cpp-build/` created, registered in `examples/browser`, commands appear in palette, frontend/backend modules load. | 1–2 days | ✅ Complete |
 | **B — Detection service** | Detect the correct build system per workspace root | `BuildSystemRegistry` selects best `BuildSystemAdapter`; CMake adapter reads `CMakePresets.json`, resolves build directory and `compile_commands.json`; quick-pick preset selection; status bar shows active system. | 1 week | ✅ Complete |
-| **C — Build execution & output** | Run configure/build and surface output | `CppBuildTaskRunner` invokes `cmake`; output streams to a dedicated **C/C++ Build** output channel; build events notify frontend. | 1 week | 🚧 In progress |
-| **D — clangd wiring** | Feed compiler invocations to the language server | Adapter writes `.clangd` config pointing at `compile_commands.json`; VS Code clangd extension picks it up automatically. | Few days | Pending |
+| **C — Build execution & output** | Run configure/build and surface output | `runStreamingCommand` invokes `cmake`; output streams to a dedicated **C/C++ Build** output channel; build events notify frontend. | 1 week | ✅ Complete |
+| **D — clangd wiring** | Feed compiler invocations to the language server | Adapter writes `.clangd` config pointing at `compile_commands.json`; VS Code clangd extension picks it up automatically. | Few days | 🚧 In progress |
 | **E — Debug integration** | Launch debugger from build graph | `DebugAdapterContribution` for `cppdbg`; resolves `program`, `args`, `cwd`, and debugger path from selected build target. | 1 week | Pending |
 | **F — Remote builds** | Cross-platform and containerized builds | Detect remote workspace URI; route discovery/build commands through `RemoteConnection.exec()`; read generated `compile_commands.json` via `FileService`. | 1–2 weeks | Pending |
 
-**Current progress:** Phase B complete; Phase C in progress.
+**Current progress:** Phase C complete; Phase D in progress.
 
 ---
 
