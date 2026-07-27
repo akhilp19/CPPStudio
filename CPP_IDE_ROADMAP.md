@@ -146,8 +146,9 @@ git push origin master
   - Auto-generated `.clangd` wiring after configure/build
   - Debug adapter contribution for launching gdb/lldb from a selected build target
   - Remote-aware build executor and file utilities for WSL, containers, and SSH hosts
+  - **Phase 1 onboarding wizard:** `C/C++: Onboard Project` command detects the toolchain, proposes `CMakePresets.json` and `.clangd`, and generates project configuration files
 
-**Next implementation target:** Phase 1 product milestones — unified build-system adapter maturity, compiler-driven indexing, one-click onboarding wizard, and C/C++ test runner unification.
+**Next implementation target:** Phase 1 product milestones — continue maturing the unified build-system adapter, compiler-driven indexing, and C/C++ test runner unification.
 
 ### 2.5.7 Theia extension implementation plan
 
@@ -210,7 +211,7 @@ The table below maps each issue to its user-facing impact and a priority tier. I
 |------------|--------------|----------------|
 | Unified build-system adapter | A single `BuildModel` abstraction that imports CMake, Bazel, Meson, Make, MSBuild, QMake, and compile_commands.json for C and C++. | 95% of sample repos open without manual configuration. |
 | True compiler-driven indexing | Indexer consumes real compiler invocations (clang, GCC, MSVC) instead of guessing include paths; per-file language mode (C vs. C++) detected from compile command. | IntelliSense correctness matches build output for 98% of symbols. |
-| One-click onboarding wizard | Detects compiler, toolchain, vcpkg/Conan, presets, and missing system deps; generates a working project config for C and C++. | Median time from clone to first successful build < 5 min for common repos. |
+| One-click onboarding wizard | Detects compiler, toolchain, vcpkg/Conan, presets, and missing system deps; generates a working project config for C and C++. | Median time from clone to first successful build < 5 min for common repos. (scaffold complete) |
 | C++20 modules — phase 1 | Basic parsing of `import`, `export module`, and module partitions; module dependency graph visualization. | Modules compile and navigate in sample projects. |
 | C standard support — phase 1 | Recognize C99/C11/C17/C23 keywords (`_Generic`, `typeof`, `static_assert`, `noreturn`, etc.); flag C/C++ compatibility issues at edit time. | C projects index and build with the same ease as C++ projects. |
 | Dependency manager integration | Native vcpkg and Conan workflows; manifest editing, version pinning, lock-file sync. | Adding a dependency is a 2-click or 1-command operation. |
